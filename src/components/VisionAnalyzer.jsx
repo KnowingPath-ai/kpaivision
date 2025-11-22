@@ -13,6 +13,7 @@ const VisionAnalyzer = ({ onShowAbout }) => {
 
   useEffect(() => {
     checkWebGPU();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const checkWebGPU = async () => {

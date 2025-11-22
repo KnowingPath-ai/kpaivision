@@ -1,7 +1,7 @@
 module.exports = {
   webpack: {
     configure: (webpackConfig) => {
-      // Fix for @huggingface/transformers
+      // Fix for @huggingface/transformers and onnxruntime-web
       webpackConfig.resolve.fallback = {
         ...webpackConfig.resolve.fallback,
         "fs": false,
@@ -15,16 +15,16 @@ module.exports = {
         /Critical dependency: 'import.meta' cannot be used as a standalone expression/,
       ];
 
-      // Add rule for handling .wasm files
+      // Fix for onnxruntime-web - exclude from parsing
       webpackConfig.module.rules.push({
         test: /\.wasm$/,
-        type: 'webassembly/async',
+        type: 'asset/resource',
       });
 
-      // Enable WebAssembly experiments
-      webpackConfig.experiments = {
-        ...webpackConfig.experiments,
-        asyncWebAssembly: true,
+      // Add externals for onnxruntime-web problematic modules
+      webpackConfig.externals = {
+        ...webpackConfig.externals,
+        'onnxruntime-node': 'onnxruntime-node',
       };
 
       return webpackConfig;

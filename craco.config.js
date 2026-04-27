@@ -1,6 +1,18 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
+  jest: {
+    configure: (jestConfig) => {
+      // Map ESM-only packages to their manual mocks so Jest can import them in jsdom
+      jestConfig.moduleNameMapper = {
+        ...(jestConfig.moduleNameMapper || {}),
+        '^@huggingface/transformers$': '<rootDir>/src/__mocks__/@huggingface/transformers.js',
+        '^@vladmandic/face-api$': '<rootDir>/src/__mocks__/@vladmandic/face-api.js',
+      };
+      return jestConfig;
+    },
+  },
   webpack: {
     configure: (webpackConfig) => {
       const isNetlify = process.env.NETLIFY === 'true';
@@ -11,19 +23,51 @@ module.exports = {
       console.log(`🌐 Netlify Build: ${isNetlify ? 'YES' : 'NO'}`);
       console.log(`📦 Node Version: ${process.version}`);
       
+      // Fix for @tensorflow/tfjs (used by face-api): strip "node:" URI prefix so
+      // existing fallbacks handle "fs", "os", "path", etc.
+      webpackConfig.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(/^node:/, (resource) => {
+          resource.request = resource.request.replace(/^node:/, '');
+        })
+      );
+      console.log('✅ CRACO: Added NormalModuleReplacementPlugin for node: URIs');
+
       // Fix for @huggingface/transformers and onnxruntime-web
       webpackConfig.resolve.fallback = {
         ...webpackConfig.resolve.fallback,
         "fs": false,
+        "fs/promises": false,
         "path": false,
+        "path/posix": false,
+        "path/win32": false,
         "crypto": false,
+        "os": false,
+        "worker_threads": false,
+        "perf_hooks": false,
+        "stream": false,
+        "buffer": false,
+        "util": false,
+        "url": false,
+        "http": false,
+        "https": false,
+        "zlib": false,
+        "net": false,
+        "tls": false,
+        "child_process": false,
+        "async_hooks": false,
+        "readline": false,
+        "module": false,
+        "v8": false,
+        "vm": false,
       };
       console.log('✅ CRACO: Added resolve fallbacks');
 
-      // Ignore warnings from @huggingface/transformers
+      // Ignore warnings from @huggingface/transformers and @tensorflow/tfjs (used by face-api)
       webpackConfig.ignoreWarnings = [
         /Critical dependency: the request of a dependency is an expression/,
         /Critical dependency: 'import.meta' cannot be used as a standalone expression/,
+        /Module not found: Error: Can't resolve 'worker_threads'/,
+        /Module not found: Error: Can't resolve 'perf_hooks'/,
       ];
       console.log('✅ CRACO: Configured ignore warnings');
 
@@ -41,23 +85,26 @@ module.exports = {
       };
       console.log('✅ CRACO: Added externals for onnxruntime-node');
 
-      // Try to resolve onnxruntime-web path
+      // Resolve onnxruntime-web to its browser bundle (supports package exports)
       let ortPath;
-      try {
-        ortPath = require.resolve('onnxruntime-web/dist/ort.webgpu.min.js');
-        console.log(`✅ CRACO: Found onnxruntime-web at: ${ortPath}`);
-      } catch (error) {
-        console.error(`❌ CRACO: Failed to resolve onnxruntime-web: ${error.message}`);
-        // Fallback to package root
+      const ortCandidates = [
+        'onnxruntime-web/webgpu',   // ort 1.19+ package export
+        'onnxruntime-web/wasm',
+        'onnxruntime-web',
+      ];
+      for (const candidate of ortCandidates) {
         try {
-          ortPath = require.resolve('onnxruntime-web');
-          console.log(`⚠️  CRACO: Using fallback path: ${ortPath}`);
-        } catch (fallbackError) {
-          console.error(`❌ CRACO: Fallback also failed: ${fallbackError.message}`);
+          ortPath = require.resolve(candidate);
+          console.log(`✅ CRACO: Resolved onnxruntime-web via "${candidate}": ${ortPath}`);
+          break;
+        } catch {
+          // try next
         }
       }
+      if (!ortPath) {
+        console.error('❌ CRACO: Could not resolve onnxruntime-web — WebGPU inference may fail');
+      }
 
-      // Add alias to help resolve onnxruntime-web correctly
       if (ortPath) {
         webpackConfig.resolve.alias = {
           ...webpackConfig.resolve.alias,

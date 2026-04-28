@@ -29,6 +29,112 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
+## Claude Code MCP Servers Configuration
+
+This project is configured with three MCP (Model Context Protocol) servers that auto-load in Claude Code:
+
+### Configured Servers
+
+1. **Figma** - Design and prototype integration
+   - Enables Claude to interact with Figma files and designs
+   - Requires: `FIGMA_API_TOKEN` environment variable
+
+2. **Firecrawl** - Web crawling and data extraction
+   - Allows Claude to scrape and analyze web content
+   - Requires: `FIRECRAWL_API_KEY` environment variable
+
+3. **shadcn** - UI component library
+   - Access to shadcn/ui components and documentation
+   - No credentials required
+
+### Setup Instructions
+
+The MCP servers are configured in two files:
+
+- **`.mcp.json`** - Server definitions (committed to git)
+- **`.claude/settings.json`** - Project-level enablement (committed to git)
+- **`.claude/settings.local.json`** - Local credentials (gitignored for security)
+
+### Adding API Credentials
+
+1. Open `.claude/settings.local.json`
+2. Replace the placeholder values with your actual API tokens:
+
+```json
+{
+  "env": {
+    "FIGMA_API_TOKEN": "your-actual-figma-token",
+    "FIRECRAWL_API_KEY": "your-actual-firecrawl-key"
+  }
+}
+```
+
+### Getting API Tokens
+
+- **Figma API Token**: https://www.figma.com/developers/api#access-tokens
+- **Firecrawl API Key**: https://www.firecrawl.dev/
+
+### Auto-Loading
+
+These servers automatically load when you start Claude Code. No manual configuration needed after adding credentials.
+
+To reload the configuration mid-session, open `/hooks` or restart Claude Code.
+
+## Optional MCP Servers (Manual Invocation)
+
+The following servers are available but disabled by default. Enable them manually when needed:
+
+### Available Optional Servers
+
+1. **Supabase** - Database and backend integration
+   - Requires: `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`
+   - Official: https://github.com/supabase-community/supabase-mcp
+   - Enables: Database queries, authentication management, real-time updates
+
+2. **Stripe** - Payment processing integration
+   - Requires: `STRIPE_API_KEY`
+   - Enables: Customer lookups, invoice checks, payment management
+
+3. **Mobbin** - Mobile design reference (via Firecrawl)
+   - Requires: `FIRECRAWL_API_KEY`
+   - Enables: Web scraping of Mobbin design patterns and references
+
+### How to Enable Optional Servers
+
+To temporarily enable an optional server during a Claude Code session:
+
+1. Open Claude Code `/hooks` command
+2. Find the server in the list (e.g., `supabase`, `stripe`, `mobbin`)
+3. Enable it for the current session
+
+Or add them to `enabledMcpjsonServers` in `.claude/settings.local.json`:
+
+```json
+{
+  "enabledMcpjsonServers": ["figma", "firecrawl", "shadcn", "supabase", "stripe"]
+}
+```
+
+### Adding Optional Server Credentials
+
+Update `.claude/settings.local.json` with your API keys:
+
+```json
+{
+  "env": {
+    "SUPABASE_URL": "https://your-project.supabase.co",
+    "SUPABASE_SERVICE_ROLE_KEY": "your-supabase-service-role-key",
+    "STRIPE_API_KEY": "sk_live_your_stripe_key"
+  }
+}
+```
+
+### Getting Optional API Credentials
+
+- **Supabase**: https://app.supabase.com → Project Settings → API Keys
+- **Stripe**: https://dashboard.stripe.com → Developers → API Keys
+- **Mobbin**: Uses Firecrawl (see Firecrawl API Key above)
+
 ### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**

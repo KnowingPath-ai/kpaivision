@@ -1,22 +1,45 @@
-* {
-box-sizing: border-box;
-}
-body {
-margin: 0;
-padding: 0;
-background: linear-gradient(135deg, #FFF8E1 0%, #FFE0B2 100%);
-min-height: 100vh;
-}
+/* KnowingPath.ai — App-level styles */
 .App {
-min-height: 100vh;
-padding: 20px;
+  min-height: 100vh;
+  padding: 20px;
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Card hover glow — KP signature */
+.kp-glow-card {
+  transition:
+    box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.kp-glow-card:hover {
+  transform:    translateY(-3px);
+  box-shadow:
+    0 15px 45px rgba(0,0,0,0.55),
+    0 0 30px rgba(91,163,217,0.50),
+    0 0 60px rgba(91,163,217,0.20);
+  border-color: rgba(91,163,217,0.35) !important;
+}
+
+/* Button glow */
+.kp-btn-glow {
+  transition:
+    box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    transform  0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 15px rgba(91,163,217,0.38);
+}
+.kp-btn-glow:hover {
+  box-shadow:
+    0 6px 22px rgba(91,163,217,0.60),
+    0 0 14px rgba(91,163,217,0.28);
+  transform: translateY(-2px);
+}
+.kp-btn-glow:active {
+  box-shadow: 0 2px 8px rgba(91,163,217,0.45);
+  transform: translateY(0);
 }

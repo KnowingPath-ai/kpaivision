@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# aom - app documents to ignore
+/updated_docs
+
+# Claude Code local settings (contains sensitive API keys)
+.claude/settings.local.json

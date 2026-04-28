@@ -1,0 +1,43 @@
+{
+  "default-skills": ["explain-code", "codebase-visualizer", "codebase-analysis"],
+  "skills": [
+    {
+      "name": "explain-code",
+      "path": "skills/explain-code/SKILL.md"
+    },
+    {
+      "name": "codebase-visualizer",
+      "path": "skills/codebase-visualizer/SKILL.md"
+    },
+    {
+      "name": "safe-lint-fixer",
+      "path": "skills/safe-lint-fixer/SKILL.md",
+      "subagent-skills": [
+        {
+          "name": "safe-lint-fixer-subagent",
+          "path": "skills/safe-lint-fixer-subagent/SKILL.md"
+        }
+      ]
+    },
+    {
+      "name": "root-files-auditor",
+      "path": "skills/root-files-auditor/SKILL.md"
+    },
+    {
+      "name": "save-session-summaries",
+      "path": "skills/save-session-summaries/SKILL.md"
+    },
+    {
+      "name": "save-implement-plans",
+      "path": "skills/save-implement-plans/SKILL.md"
+    },
+    {
+      "name": "md-2-html-converter",
+      "path": "skills/md_2_html_converter/SKILL.md"
+    },
+    {
+      "name": "codebase-analysis",
+      "path": "skills/codebase-analysis/SKILL.md"
+    }
+  ]
+}

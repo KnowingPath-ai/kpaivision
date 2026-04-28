@@ -1,0 +1,13 @@
+{
+  "enabledMcpjsonServers": ["figma", "firecrawl", "shadcn"],
+  "permissions": {
+    "allow": [
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Grep",
+      "Bash"
+    ]
+  }
+}

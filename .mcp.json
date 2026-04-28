@@ -1,0 +1,75 @@
+{
+  "mcpServers": {
+    "figma": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-figma"
+      ],
+      "env": {
+        "FIGMA_API_TOKEN": "${FIGMA_API_TOKEN}"
+      },
+      "disabled": false,
+      "alwaysAllow": []
+    },
+    "firecrawl": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-firecrawl"
+      ],
+      "env": {
+        "FIRECRAWL_API_KEY": "${FIRECRAWL_API_KEY}"
+      },
+      "disabled": false,
+      "alwaysAllow": []
+    },
+    "shadcn": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "shadcn-ui"
+      ],
+      "disabled": false,
+      "alwaysAllow": []
+    },
+    "supabase": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@supabase-community/supabase-mcp"
+      ],
+      "env": {
+        "SUPABASE_URL": "${SUPABASE_URL}",
+        "SUPABASE_SERVICE_ROLE_KEY": "${SUPABASE_SERVICE_ROLE_KEY}"
+      },
+      "disabled": true,
+      "alwaysAllow": []
+    },
+    "stripe": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-stripe"
+      ],
+      "env": {
+        "STRIPE_API_KEY": "${STRIPE_API_KEY}"
+      },
+      "disabled": true,
+      "alwaysAllow": []
+    },
+    "mobbin": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-firecrawl"
+      ],
+      "env": {
+        "FIRECRAWL_API_KEY": "${FIRECRAWL_API_KEY}",
+        "MOBBIN_URL": "https://mobbin.com"
+      },
+      "disabled": true,
+      "alwaysAllow": []
+    }
+  }
+}

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KnowingPath.ai Vision — Executive Summary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(91,163,217,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(212,168,67,0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 100%, rgba(91,163,217,0.06) 0%, transparent 70%),
+        linear-gradient(180deg, #050912 0%, #0A0F1E 40%, #0F1729 100%);
+      background-attachment: fixed;
+      color: #E2E8F0;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Owl watermark */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url('../src/assets/blue-owl-o15.png');
+      background-size: 45%;
+      background-repeat: no-repeat;
+      background-position: center center;
+      opacity: 0.015;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 48px 32px 64px;
+    }
+
+    /* ── Header ───────────────────────────────────────────── */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(91,163,217,0.22);
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 14px; }
+    .brand-text h1 {
+      font-size: 1.25rem; font-weight: 800; color: #E2E8F0;
+      letter-spacing: -0.02em; line-height: 1.2;
+    }
+    .brand-tag { font-size: 0.6875rem; color: #5BA3D9; font-style: italic; margin-top: 2px; }
+
+    .meta { text-align: right; }
+    .meta .doc-type {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: #D4A843; margin-bottom: 4px;
+    }
+    .meta .doc-date { font-size: 0.8125rem; color: #475569; }
+    .meta .doc-for { font-size: 0.8rem; color: #94A3B8; margin-top: 3px; }
+
+    /* ── Page title ───────────────────────────────────────── */
+    .page-title {
+      margin-bottom: 36px;
+    }
+    .page-title h2 {
+      font-size: 1.875rem; font-weight: 800; color: #E2E8F0;
+      letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 10px;
+      text-align: center; white-space: nowrap;
+    }
+    .page-title .lead {
+      font-size: 1rem; color: #94A3B8; line-height: 1.7; max-width: 680px;
+    }
+
+    /* ── Section cards ────────────────────────────────────── */
+    .card {
+      background: rgba(10,15,30,0.88);
+      border: 1px solid rgba(91,163,217,0.18);
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 20px;
+    }
+    .card.gold-border  { border-color: rgba(212,168,67,0.35); }
+    .card.blue-border  { border-color: rgba(91,163,217,0.35); }
+    .card.green-border { border-color: rgba(74,222,128,0.25); }
+    .card.red-border   { border-color: rgba(252,165,165,0.25); }
+
+    .card-label {
+      font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.09em;
+      text-transform: uppercase; margin-bottom: 10px;
+    }
+    .card-label.blue  { color: #5BA3D9; }
+    .card-label.gold  { color: #D4A843; }
+    .card-label.green { color: #4ADE80; }
+    .card-label.red   { color: #FCA5A5; }
+
+    .card h3 {
+      font-size: 1.0625rem; font-weight: 700; color: #E2E8F0;
+      margin-bottom: 12px; letter-spacing: -0.01em;
+    }
+    .card p { font-size: 0.9rem; color: #94A3B8; line-height: 1.75; margin-bottom: 10px; }
+    .card p:last-child { margin-bottom: 0; }
+    .card strong { color: #E2E8F0; }
+
+    /* ── Two-col grid ─────────────────────────────────────── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    @media (max-width: 620px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* ── Capability pills ─────────────────────────────────── */
+    .cap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .cap-pill {
+      background: rgba(91,163,217,0.07);
+      border: 1px solid rgba(91,163,217,0.20);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.8125rem;
+      color: #82C0EE;
+      font-weight: 500;
+    }
+    .cap-pill .cap-icon { margin-right: 6px; }
+
+    /* ── Example block ────────────────────────────────────── */
+    .example-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 16px;
+      background: rgba(212,168,67,0.05);
+      border: 1px solid rgba(212,168,67,0.18);
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .example-row:last-child { margin-bottom: 0; }
+    .example-prompt {
+      font-size: 0.8rem; color: #94A3B8; font-style: italic;
+      min-width: 220px; flex-shrink: 0;
+    }
+    .example-arrow { color: #D4A843; font-size: 1rem; margin-top: 1px; }
+    .example-result { font-size: 0.8rem; color: #E2E8F0; }
+
+    /* ── Stat row ─────────────────────────────────────────── */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .stat { display: flex; flex-direction: column; gap: 4px; }
+    .stat-label {
+      font-size: 0.6875rem; font-weight: 700; color: #475569;
+      text-transform: uppercase; letter-spacing: 0.07em;
+    }
+    .stat-value { font-size: 1rem; font-weight: 700; color: #82C0EE; }
+    .stat-note  { font-size: 0.75rem; color: #475569; }
+
+    /* ── Footer ───────────────────────────────────────────── */
+    .footer {
+      margin-top: 52px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(91,163,217,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-brand { display: flex; align-items: center; gap: 10px; }
+    .footer-text { font-size: 0.75rem; color: #475569; font-style: italic; }
+    .footer-right { font-size: 0.75rem; color: #475569; text-align: right; }
+
+    /* ── Divider label ────────────────────────────────────── */
+    .section-heading {
+      font-size: 0.6875rem; font-weight: 700; color: #D4A843;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      margin: 32px 0 14px;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="brand">
+      <!-- KP Logo SVG -->
+      <svg width="48" height="48" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="flex-shrink:0">
+        <circle cx="22" cy="22" r="21" fill="rgba(91,163,217,0.12)" stroke="rgba(91,163,217,0.40)" stroke-width="1"/>
+        <path d="M8 30 Q22 10 36 30" stroke="#5BA3D9" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M12 30 L12 26" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+        <path d="M18 30 L18 22" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+        <path d="M24 30 L24 19" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+        <path d="M30 30 L30 22" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+        <path d="M36 30 L36 26" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="22" cy="11" r="2.5" fill="#5BA3D9" opacity="0.8"/>
+      </svg>
+      <div class="brand-text">
+        <h1>KnowingPath.ai Vision</h1>
+        <div class="brand-tag">Private AI. See Everything. Share Nothing.</div>
+      </div>
+    </div>
+    <div class="meta">
+      <div class="doc-type">Executive Summary</div>
+      <div class="doc-date">April 29, 2026</div>
+      <div class="doc-for">Module 7 — AI Applications Project</div>
+    </div>
+  </header>
+
+  <!-- Page title -->
+  <div class="page-title">
+    <h2>On-Device Visual AI for a Privacy-First World</h2>
+    <p class="lead">
+      KnowingPath.ai Vision is a web application that runs a full artificial intelligence vision model
+      directly inside the user's browser — with no images, data, or results ever leaving the device.
+      It delivers enterprise-grade image intelligence with zero privacy risk.
+    </p>
+  </div>
+
+  <!-- The Problem -->
+  <div class="section-heading">◆ The Problem</div>
+  <div class="card gold-border">
+    <div class="card-label gold">Why This Matters</div>
+    <h3>Every major AI image tool today sends your photos to someone else's server</h3>
+    <p>
+      When a professional uses Google Vision, OpenAI, or any cloud-based AI to analyze an image,
+      that image travels over the internet to a remote data center, is processed by a third party,
+      and may be logged, stored, or used to improve commercial models. For sensitive content —
+      legal documents, medical photos, proprietary product designs, personal identification — this
+      is an unacceptable trade-off.
+    </p>
+    <p>
+      Beyond privacy, cloud AI creates operational dependencies: the service can go down, change
+      its pricing, or be unavailable without internet. Organizations subject to data regulations
+      (HIPAA, GDPR, FERPA) face real compliance risk every time an image is sent offsite.
+    </p>
+    <p>
+      <strong>The core problem: there has been no practical way to get AI-powered image analysis
+      while keeping images completely private — until now.</strong>
+    </p>
+  </div>
+
+  <!-- The Solution -->
+  <div class="section-heading">◆ The Solution</div>
+  <div class="card blue-border">
+    <div class="card-label blue">How It Works — Simply Put</div>
+    <h3>A 500-million-parameter AI model that runs entirely inside your web browser</h3>
+    <p>
+      KnowingPath.ai Vision uses a technique called <strong>on-device inference</strong>. Rather than
+      sending images to a server, the AI model itself is downloaded to the user's machine (a one-time
+      ~2-minute download) and then runs locally using the device's graphics processor (GPU) —
+      the same hardware used for gaming and video rendering.
+    </p>
+    <p>
+      Think of it like the difference between streaming a movie and owning a DVD. Cloud AI
+      streams your data to someone else's projector. KnowingPath.ai Vision gives you the projector.
+      Once set up, it works offline, costs nothing to run, and cannot share your data because
+      it never has access to a network connection during analysis.
+    </p>
+    <p>
+      The model powering this — <strong>SmolVLM-500M-Instruct</strong> — was developed by
+      HuggingFace and uses a two-stage architecture: a <em>vision encoder</em> that converts
+      images into a compact numerical representation, and a <em>language decoder</em> that
+      translates that representation into readable English text.
+    </p>
+  </div>
+
+  <!-- What It Can Do -->
+  <div class="section-heading">◆ Capabilities — What the Tool Can Do</div>
+  <div class="card">
+    <div class="card-label blue">15 Documented Analysis Capabilities</div>
+    <p>
+      A user submits any image and asks a question in plain English. The model reads both the
+      image and the question together, then generates a text answer — all on the device,
+      typically in 1–10 seconds.
+    </p>
+    <div class="cap-grid">
+      <div class="cap-pill"><span class="cap-icon">📸</span>Image Description</div>
+      <div class="cap-pill"><span class="cap-icon">🔍</span>Object Detection</div>
+      <div class="cap-pill"><span class="cap-icon">📝</span>Text Extraction (OCR)</div>
+      <div class="cap-pill"><span class="cap-icon">📄</span>Document Q&amp;A</div>
+      <div class="cap-pill"><span class="cap-icon">📊</span>Chart &amp; Graph Reading</div>
+      <div class="cap-pill"><span class="cap-icon">🌍</span>Scene Understanding</div>
+      <div class="cap-pill"><span class="cap-icon">🎨</span>Mood &amp; Atmosphere</div>
+      <div class="cap-pill"><span class="cap-icon">🏃</span>Activity Recognition</div>
+      <div class="cap-pill"><span class="cap-icon">🏛️</span>Landmark Recognition</div>
+      <div class="cap-pill"><span class="cap-icon">🛍️</span>Product Identification</div>
+      <div class="cap-pill"><span class="cap-icon">🍕</span>Food &amp; Cuisine</div>
+      <div class="cap-pill"><span class="cap-icon">🌳</span>Nature &amp; Wildlife</div>
+    </div>
+  </div>
+
+  <!-- Examples -->
+  <div class="section-heading">◆ Practical Examples</div>
+  <div class="card gold-border">
+    <div class="card-label gold">Real-World Use Cases</div>
+    <div class="example-row">
+      <div class="example-prompt">"What does this receipt say?" [photo of receipt]</div>
+      <div class="example-arrow">→</div>
+      <div class="example-result">"Total: $47.23 · Date: March 15 · Items include coffee, sandwich, and bottled water."</div>
+    </div>
+    <div class="example-row">
+      <div class="example-prompt">"What text appears in this image?" [street sign photo]</div>
+      <div class="example-arrow">→</div>
+      <div class="example-result">"The sign reads 'MAIN ST' intersecting with '5TH AVE'. Speed limit 25 mph posted below."</div>
+    </div>
+    <div class="example-row">
+      <div class="example-prompt">"What trend does this chart show?" [bar graph]</div>
+      <div class="example-arrow">→</div>
+      <div class="example-result">"Sales increased steadily from Q1 through Q3, with a sharp decline in Q4 suggesting seasonal impact."</div>
+    </div>
+    <div class="example-row">
+      <div class="example-prompt">"Describe what is happening in this image." [workplace photo]</div>
+      <div class="example-arrow">→</div>
+      <div class="example-result">"Three people are seated around a conference table reviewing printed documents. The setting appears to be a formal office meeting room."</div>
+    </div>
+  </div>
+
+  <!-- Architecture & Tech -->
+  <div class="section-heading">◆ Technical Architecture at a Glance</div>
+  <div class="two-col">
+    <div class="card" style="margin-bottom:0">
+      <div class="card-label blue">Technology Stack</div>
+      <div class="stat-row" style="grid-template-columns:1fr; gap:10px; margin-top:8px;">
+        <div class="stat">
+          <div class="stat-label">AI Model</div>
+          <div class="stat-value" style="font-size:0.875rem">SmolVLM-500M-Instruct</div>
+          <div class="stat-note">500 million parameters · Apache 2.0 license</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Inference Engine</div>
+          <div class="stat-value" style="font-size:0.875rem">WebGPU / ONNX Runtime</div>
+          <div class="stat-note">Runs on device GPU — no server calls</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Frontend</div>
+          <div class="stat-value" style="font-size:0.875rem">React 18 + CRACO</div>
+          <div class="stat-note">Deployed via Netlify CDN — auto-deploy on commit</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Browser Requirement</div>
+          <div class="stat-value" style="font-size:0.875rem">Chrome or Edge 113+</div>
+          <div class="stat-note">WebGPU required for GPU acceleration</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <div class="card-label green">Deployment &amp; Cost Profile</div>
+      <div class="stat-row" style="grid-template-columns:1fr; gap:10px; margin-top:8px;">
+        <div class="stat">
+          <div class="stat-label">Infrastructure Cost</div>
+          <div class="stat-value">$0 / month</div>
+          <div class="stat-note">Netlify free tier · HuggingFace model hosting</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Concurrent Users</div>
+          <div class="stat-value">Unlimited</div>
+          <div class="stat-note">No server — each user runs their own instance</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Analysis Speed</div>
+          <div class="stat-value">1 – 10 sec</div>
+          <div class="stat-note">Per image · depends on device GPU</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">First Load Time</div>
+          <div class="stat-value">~2 minutes</div>
+          <div class="stat-note">One-time model download · cached for instant future use</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Privacy -->
+  <div class="section-heading">◆ Privacy &amp; Security Posture</div>
+  <div class="card green-border">
+    <div class="card-label green">Zero-Trust Data Architecture</div>
+    <p>
+      KnowingPath.ai Vision is designed with a <strong>privacy guarantee that cannot be circumvented by
+      policy change, misconfiguration, or breach</strong> — because no image data ever reaches a
+      network connection. The application has no backend server, no database, no analytics tracker,
+      and no API keys. It is a static website that hands the AI model to the user's own machine
+      and steps aside.
+    </p>
+    <p>
+      This architecture is inherently compliant with data minimization principles under GDPR and
+      similar frameworks — there is no data to govern because no data is collected. Organizations
+      in sensitive sectors (healthcare, legal, finance, education) can deploy this tool for
+      document and image review with no additional compliance overhead.
+    </p>
+  </div>
+
+  <!-- Current Status & Roadmap -->
+  <div class="section-heading">◆ Current Status &amp; Forward Path</div>
+  <div class="two-col">
+    <div class="card" style="margin-bottom:0">
+      <div class="card-label blue">What Is Built &amp; Working Today</div>
+      <ul style="list-style:none; padding:0; font-size:0.875rem; color:#94A3B8; line-height:2;">
+        <li>✅ Full AI inference pipeline (image → answer)</li>
+        <li>✅ Image upload and live camera capture</li>
+        <li>✅ 15 documented analysis capabilities</li>
+        <li>✅ On-device safety monitoring feature</li>
+        <li>✅ Production deployment on Netlify CDN</li>
+        <li>✅ Works offline after first model download</li>
+        <li>✅ KnowingPath.ai brand identity applied</li>
+      </ul>
+    </div>
+    <div class="card red-border" style="margin-bottom:0">
+      <div class="card-label red">Near-Term Development Priorities</div>
+      <ul style="list-style:none; padding:0; font-size:0.875rem; color:#94A3B8; line-height:2;">
+        <li>🔲 Custom free-text prompt input field</li>
+        <li>🔲 Download progress bar (% shown to user)</li>
+        <li>🔲 Analysis history saved locally</li>
+        <li>🔲 Result export (JSON / clipboard copy)</li>
+        <li>🔲 Batch image processing</li>
+        <li>🔲 Mobile browser optimization</li>
+        <li>🔲 Accessibility improvements (WCAG 2.1)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Closing -->
+  <div class="section-heading">◆ Summary Judgment</div>
+  <div class="card" style="border-color: rgba(212,168,67,0.30);">
+    <div class="card-label gold">Bottom Line for Decision-Makers</div>
+    <p>
+      KnowingPath.ai Vision demonstrates that <strong>powerful AI does not require surrendering
+      privacy</strong>. By running a production-grade vision language model entirely within the
+      browser, it solves the fundamental tension between capability and confidentiality that has
+      made AI adoption difficult in regulated or sensitive environments.
+    </p>
+    <p>
+      The application is production-ready today, costs nothing to operate at any scale, and
+      requires no infrastructure management. Its core AI pipeline — image understanding, text
+      extraction, document analysis, and scene interpretation — is fully functional. The near-term
+      roadmap focuses on usability refinements rather than foundational work, reflecting a
+      technically sound foundation built for expansion.
+    </p>
+    <p>
+      <strong>The right audience for this tool:</strong> privacy-conscious professionals, researchers
+      handling sensitive materials, organizations with regulatory constraints, and anyone who
+      believes their images should remain their own.
+    </p>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-brand">
+      <svg width="22" height="22" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="22" cy="22" r="21" fill="rgba(91,163,217,0.12)" stroke="rgba(91,163,217,0.40)" stroke-width="1"/>
+        <path d="M8 30 Q22 10 36 30" stroke="#5BA3D9" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <path d="M12 30 L12 26" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+        <path d="M18 30 L18 22" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+        <path d="M24 30 L24 19" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+        <path d="M30 30 L30 22" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+        <path d="M36 30 L36 26" stroke="#D4A843" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="22" cy="11" r="2.5" fill="#5BA3D9" opacity="0.8"/>
+      </svg>
+      <span class="footer-text">© 2026 KnowingPath.ai · A KnowingPath.ai Ecosystem Tool</span>
+    </div>
+    <div class="footer-right">
+      Powered by SmolVLM-500M · WebGPU On-Device Inference<br/>
+      Zero data leaves your browser — ever.
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

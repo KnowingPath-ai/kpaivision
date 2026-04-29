@@ -2,21 +2,6 @@
 .App {
   min-height: 100vh;
   padding: 20px;
-  position: relative;
-}
-
-/* Faint owl watermark — "barely there" background */
-.App::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url('./assets/blue-owl.png');
-  background-size: 45%;
-  background-repeat: no-repeat;
-  background-position: center center;
-  opacity: 0.015;
-  pointer-events: none;
-  z-index: -1;
 }
 
 @keyframes spin {
